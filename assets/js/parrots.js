@@ -1,6 +1,7 @@
 /* Amazona — данные о птицах и генератор SVG-иллюстраций.
-   Все попугаи рисуются одной функцией parrotSVG(): меняются только цвета и детали
-   (хохол, маска, длина хвоста). Чтобы добавить птицу, допишите объект в PARROTS. */
+   Фото лежат в assets/img, авторы и лицензии указаны в поле credit (выводятся в подвале).
+   parrotSVG() рисует иллюстрированного попугая-талисмана по цветам из поля c.
+   Чтобы добавить птицу, допишите объект в PARROTS. */
 (function () {
   'use strict';
 
@@ -10,6 +11,9 @@
       size: 'large', length: 86, life: 60, talk: 3, cites: 'II',
       price: 380000, status: 'В наличии', say: 'Привет!',
       tint: '#1F6FD1',
+      photo: 'assets/img/ararauna.jpg', alt: 'Сине-жёлтый ара в полёте над лесом',
+      credit: { author: 'Luc Viatour', license: 'CC BY 2.0', licenseUrl: 'https://creativecommons.org/licenses/by/2.0/',
+        source: 'https://commons.wikimedia.org/wiki/File:Ara_ararauna_Luc_Viatour.jpg' },
       c: {
         body: '#1F6FD1', head: '#2B7FE0', belly: '#F5B82E', wing: '#1A60C2', tip: '#123E86',
         tail: '#1A5BB6', face: '#FFFFFF', stripes: true, forehead: '#35A35A',
@@ -21,6 +25,9 @@
       size: 'large', length: 85, life: 50, talk: 3, cites: 'I',
       price: 450000, status: 'Под заказ', say: 'Ррр-привет!',
       tint: '#E0352B',
+      photo: 'assets/img/macao.jpg', alt: 'Красный ара сидит на ветке среди листвы',
+      credit: { author: 'Charles J. Sharp', license: 'CC BY-SA 4.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+        source: 'https://commons.wikimedia.org/wiki/File:Scarlet_macaw_(Ara_macao_cyanopterus)_Copan.jpg' },
       c: {
         body: '#E0352B', head: '#E8412F', belly: '#D92E25', wing: '#F5B82E', tip: '#1F6FD1',
         tail: '#C9281F', face: '#FBF4EC', beak: '#F1E6CF', beakLow: '#1E1F22', longTail: true
@@ -31,6 +38,9 @@
       size: 'large', length: 50, life: 70, talk: 2, cites: 'II',
       price: 290000, status: 'В наличии', say: 'Почеши голову',
       tint: '#F5C518',
+      photo: 'assets/img/galerita.jpg', alt: 'Большой желтохохлый какаду на ветке',
+      credit: { author: 'JJ Harrison', license: 'CC BY-SA 3.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0/',
+        source: 'https://commons.wikimedia.org/wiki/File:Cacatua_galerita_Tas_2.jpg' },
       c: {
         body: '#FAF8F2', head: '#FFFFFF', belly: '#F1EEE4', wing: '#EFEBE0', tip: '#E3DDCD',
         tail: '#ECE7D8', crest: '#F5C518', beak: '#2A2B30', beakLow: '#2A2B30', outline: true
@@ -41,6 +51,9 @@
       size: 'medium', length: 33, life: 50, talk: 5, cites: 'I',
       price: 210000, status: 'В наличии', say: 'Алло? Кто там?',
       tint: '#7D8A93',
+      photo: 'assets/img/erithacus.jpg', alt: 'Серый попугай жако на коряге',
+      credit: { author: 'Florettesokeng', license: 'CC BY-SA 4.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+        source: 'https://commons.wikimedia.org/wiki/File:Perroquet_%C3%A0_Yampopo_Beach_-_Douala.jpg' },
       c: {
         body: '#8F979D', head: '#A2A9AE', belly: '#A9AFB4', wing: '#7B8388', tip: '#565D62',
         tail: '#D8322A', faceSmall: '#E8E8E4', iris: '#F4E9B8', beak: '#222326', beakLow: '#222326'
@@ -50,7 +63,10 @@
       id: 'eclectus', name: 'Благородный попугай', latin: 'Eclectus roratus',
       size: 'medium', length: 40, life: 30, talk: 4, cites: 'II',
       price: 240000, status: 'В наличии', say: 'Яблочко!',
-      tint: '#2FA24B',
+      tint: '#C8243A', feathers: ['#C8243A', '#5B3FA8', '#F5B82E', '#E0402A'],
+      photo: 'assets/img/eclectus.jpg', alt: 'Самка благородного попугая на ветке',
+      credit: { author: 'Selena N. B. H.', license: 'CC BY 2.0', licenseUrl: 'https://creativecommons.org/licenses/by/2.0/',
+        source: 'https://commons.wikimedia.org/wiki/File:Eclectus_roratus_-North_Carolina_Zoo,_Asheboro,_North_Carolina,_USA_-female-8a_(1).jpg' },
       c: {
         body: '#2FA24B', head: '#3AB457', belly: '#35A94F', wing: '#28903F', tip: '#1E5DB0',
         tail: '#2A9444', beak: '#F58A2E', beakLow: '#2A2A2A'
@@ -61,6 +77,9 @@
       size: 'small', length: 30, life: 20, talk: 2, cites: 'II',
       price: 95000, status: 'В наличии', say: 'Нектар есть?',
       tint: '#2F4FC9',
+      photo: 'assets/img/lorikeet.jpg', alt: 'Радужный лорикет среди цветов',
+      credit: { author: 'Charles J. Sharp', license: 'CC BY-SA 4.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+        source: 'https://commons.wikimedia.org/wiki/File:Rainbow_lorikeet_(Trichoglossus_moluccanus_moluccanus)_Sydney.jpg' },
       c: {
         body: '#35A64B', head: '#2F4FC9', belly: '#F4702A', wing: '#2E9A45', tip: '#1D6B34',
         tail: '#3AAE52', beak: '#E8402A', beakLow: '#E8402A'
@@ -71,6 +90,9 @@
       size: 'medium', length: 37, life: 50, talk: 4, cites: 'II',
       price: 120000, status: 'В наличии', say: 'Гулять!',
       tint: '#3FA34D',
+      photo: 'assets/img/aestiva.jpg', alt: 'Синелобый амазон на сухом дереве',
+      credit: { author: 'Charles J. Sharp', license: 'CC BY-SA 4.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+        source: 'https://commons.wikimedia.org/wiki/File:Turquoise-fronted_amazon_(Amazona_aestiva)_older_adult.JPG' },
       c: {
         body: '#3FA34D', head: '#47AF55', belly: '#4DB65A', wing: '#36924A', tip: '#2A5FA8',
         tail: '#3C9F4B', face: '#F5C83A', forehead: '#3C7BD8', beak: '#2B2B2B', beakLow: '#2B2B2B'
@@ -81,6 +103,9 @@
       size: 'small', length: 30, life: 25, talk: 2, cites: 'II',
       price: 45000, status: 'В наличии', say: 'Солнышко!',
       tint: '#F7A51C',
+      photo: 'assets/img/solstitialis.jpg', alt: 'Две солнечные аратинги на ветке',
+      credit: { author: 'Wayne Deeker', license: 'CC BY 3.0', licenseUrl: 'https://creativecommons.org/licenses/by/3.0/',
+        source: 'https://commons.wikimedia.org/wiki/File:Aratinga_solstitialis_-captive-two-8a.jpg' },
       c: {
         body: '#F7A51C', head: '#F9C22C', belly: '#F4851E', wing: '#F6C43C', tip: '#2F9E5B',
         tail: '#5E9E48', face: '#F47A1F', beak: '#2B2B2B', beakLow: '#2B2B2B'

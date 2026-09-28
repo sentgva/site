@@ -25,7 +25,8 @@
   --shadow: 0 26px 60px -28px rgb(15 38 29 / .38);
   --radius: 22px;
   --header-h: 68px;
-  --f-display: "Unbounded", "Arial Black", system-ui, sans-serif;
+  --f-display: "Yeseva One", "Playfair Display", Georgia, serif;
+  --f-accent: "Cormorant", "Cormorant Garamond", Georgia, serif;
   --f-body: "Onest", "Segoe UI", system-ui, -apple-system, sans-serif;
   --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 }
@@ -101,13 +102,18 @@ a { color: inherit; }
 .wrap { width: min(1200px, 100% - 32px); margin-inline: auto; }
 
 h1 {
-  font: 700 clamp(2.3rem, 5.4vw, 4.6rem)/1.04 var(--f-display);
-  letter-spacing: -0.02em;
+  font: 400 clamp(2.5rem, 5.8vw, 5rem)/1.02 var(--f-display);
+  letter-spacing: -0.005em;
 }
-h1 em { font-style: normal; color: var(--red); white-space: nowrap; }
+h1 em, h2 em {
+  font-family: var(--f-accent); font-style: italic; font-weight: 600;
+  font-size: 1.12em; letter-spacing: 0;
+}
+h1 em { color: var(--red); white-space: nowrap; }
+h2 em { color: var(--leaf); }
+.booking-panel h2 em { color: var(--sun); }
 h2 {
-  font: 700 clamp(1.8rem, 3.5vw, 2.9rem)/1.1 var(--f-display);
-  letter-spacing: -0.015em;
+  font: 400 clamp(1.9rem, 3.7vw, 3.1rem)/1.08 var(--f-display);
 }
 .eyebrow {
   display: inline-flex; align-items: center; gap: 10px;
@@ -154,7 +160,7 @@ h2 {
 }
 .logo {
   display: inline-flex; align-items: center; gap: 10px;
-  font: 700 18px/1 var(--f-display); text-decoration: none; letter-spacing: -.01em;
+  font: 400 21px/1 var(--f-display); text-decoration: none;
 }
 .nav { display: flex; gap: 28px; }
 .nav a { font-weight: 500; font-size: 15px; color: var(--ink-2); text-decoration: none; transition: color .2s; }
@@ -183,16 +189,16 @@ h2 {
 
 .frame {
   width: min(300px, 56vw);
-  padding: 14px 14px 18px;
+  padding: 12px 12px 16px;
   border-radius: 28px;
   overflow: hidden;
   background: color-mix(in oklab, var(--tint) var(--tint-mix), var(--surface));
   border: 1px solid color-mix(in oklab, var(--tint) 22%, var(--line));
   box-shadow: var(--shadow);
 }
-.frame .parrot-svg { display: block; width: 76%; height: auto; margin: 0 auto; overflow: visible; }
+.frame img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 18px; }
 .frame figcaption { display: grid; gap: 2px; text-align: center; margin-top: 10px; }
-.frame strong { font: 600 16px/1.25 var(--f-display); }
+.frame strong { font: 400 18px/1.2 var(--f-display); }
 .frame figcaption span { font-size: 13px; font-style: italic; color: var(--ink-2); }
 
 .fly-intro {
@@ -205,7 +211,11 @@ h2 {
 }
 .fly-intro::before {
   content: ""; position: absolute; z-index: -1; inset: -12% -16% -14% -20%;
-  background: radial-gradient(closest-side, color-mix(in oklab, var(--bg) 88%, transparent), transparent);
+  background: color-mix(in oklab, var(--bg) 62%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  -webkit-mask-image: radial-gradient(closest-side, #000 55%, transparent);
+  mask-image: radial-gradient(closest-side, #000 55%, transparent);
   pointer-events: none;
 }
 .fly-intro > * { animation: rise .9s cubic-bezier(.2, .8, .2, 1) both; }
@@ -255,7 +265,8 @@ h2 {
 .marquee-track { display: flex; width: max-content; animation: marquee 42s linear infinite; }
 .marquee:hover .marquee-track { animation-play-state: paused; }
 .marquee-half { display: flex; align-items: center; gap: 36px; padding-right: 36px; }
-.marquee span { font: 600 clamp(18px, 2.3vw, 28px)/1 var(--f-display); white-space: nowrap; letter-spacing: -.01em; }
+.marquee span { font: 400 clamp(20px, 2.5vw, 32px)/1.1 var(--f-display); white-space: nowrap; }
+.marquee span:nth-of-type(even) { font-family: var(--f-accent); font-style: italic; font-weight: 600; font-size: clamp(23px, 2.9vw, 37px); }
 .marquee .ico { width: 14px; height: 32px; flex: none; transform: rotate(24deg); }
 
 /* ---------- Секции ---------- */
@@ -304,36 +315,31 @@ h2 {
 
 .card-stage {
   position: relative;
-  aspect-ratio: 1 / 1.02;
+  aspect-ratio: 4 / 5;
   max-width: 100%;
   margin: 8px 8px 0;
   border-radius: calc(var(--radius) - 6px);
   overflow: hidden;
   background: color-mix(in oklab, var(--tint) var(--tint-mix), var(--surface));
 }
-.card-stage::before {
-  content: ""; position: absolute; left: 50%; top: 44%;
-  width: 72%; aspect-ratio: 1; translate: -50% -50%;
-  border-radius: 50%;
-  background: color-mix(in oklab, var(--tint) calc(var(--tint-mix) + 12%), var(--surface));
-  transition: scale .7s cubic-bezier(.2, .8, .2, 1);
-}
-.card.is-hover .card-stage::before { scale: 1.14; }
 .card-stage::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(circle at var(--mx, 50%) var(--my, 40%), rgb(255 255 255 / .55), transparent 45%);
+  background:
+    radial-gradient(circle at var(--mx, 50%) var(--my, 40%), rgb(255 255 255 / .6), transparent 42%),
+    linear-gradient(to top, rgb(0 0 0 / .18), transparent 30%);
   mix-blend-mode: soft-light;
   opacity: 0; transition: opacity .3s;
 }
 .card.is-hover .card-stage::after { opacity: 1; }
 
-.card-parrot {
-  position: absolute; inset: 7% 0 0;
-  display: flex; justify-content: center;
-  transform: translate(var(--px, 0px), var(--py, 0px));
-  transition: transform .5s cubic-bezier(.2, .8, .2, 1);
+.card-photo { position: absolute; inset: 0; }
+.card-photo img {
+  display: block; width: 100%; height: 100%; object-fit: cover;
+  transform: scale(var(--zoom, 1.02)) translate(var(--px, 0px), var(--py, 0px));
+  filter: saturate(.94);
+  transition: transform .7s cubic-bezier(.2, .8, .2, 1), filter .5s;
 }
-.card-parrot .parrot-svg { height: 100%; width: auto; flex: none; overflow: visible; }
+.card.is-hover .card-photo img { --zoom: 1.1; filter: saturate(1.08); transition-duration: .5s, .5s; }
 
 .badge, .cites { position: absolute; z-index: 2; top: 12px; }
 .badge {
@@ -355,21 +361,21 @@ h2 {
 }
 
 .bubble {
-  position: absolute; z-index: 3; left: 6%; top: 24%;
-  max-width: 46%;
+  position: absolute; z-index: 3; left: 12px; bottom: 14px;
+  max-width: calc(100% - 24px);
   font: 600 14px/1.25 var(--f-body);
   padding: 9px 12px;
-  border-radius: 16px 16px 4px 16px;
+  border-radius: 16px 16px 16px 4px;
   background: var(--surface); color: var(--ink);
   box-shadow: 0 10px 24px -12px rgb(15 38 29 / .4);
-  opacity: 0; transform: translateY(8px) scale(.7); transform-origin: 100% 100%;
+  opacity: 0; transform: translateY(8px) scale(.7); transform-origin: 0 100%;
   transition: opacity .25s, transform .35s cubic-bezier(.3, 1.6, .5, 1);
 }
 .card.is-hover .bubble, .card:focus-within .bubble { opacity: 1; transform: none; }
 
 .card-body { display: flex; flex-direction: column; flex: 1; padding: 18px 18px 18px; }
 .latin { font-size: 13px; font-style: italic; color: var(--ink-2); }
-.card-body h3 { font: 600 16px/1.3 var(--f-display); min-height: 2.6em; margin-top: 4px; letter-spacing: -.005em; }
+.card-body h3 { font: 400 19px/1.2 var(--f-display); min-height: 2.4em; margin-top: 4px; }
 .specs { display: grid; grid-template-columns: repeat(3, auto); justify-content: space-between; gap: 8px; margin: 12px 0 18px; }
 .specs dt { font: 500 10.5px/1.2 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
 .specs dd { margin: 4px 0 0; font-weight: 600; font-size: 14px; font-variant-numeric: tabular-nums; }
@@ -380,7 +386,7 @@ h2 {
   display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
   margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line);
 }
-.price { font: 700 17px/1 var(--f-display); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.price { font: 400 20px/1 var(--f-display); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .price small { font: 500 12px/1 var(--f-body); color: var(--ink-2); margin-right: 2px; }
 
 /* Анимации частей попугая */
@@ -397,7 +403,7 @@ h2 {
 .why-copy { position: sticky; top: calc(var(--header-h) + 32px); }
 .why-copy > p { margin-top: 20px; color: var(--ink-2); max-width: 46ch; }
 .facts { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 28px; margin: 36px 0 0; }
-.facts dt { font: 700 clamp(1.5rem, 2.6vw, 2.2rem)/1 var(--f-display); letter-spacing: -.02em; white-space: nowrap; }
+.facts dt { font: 400 clamp(1.7rem, 2.9vw, 2.5rem)/1 var(--f-display); white-space: nowrap; }
 .facts dd { margin: 8px 0 0; font-size: 14px; color: var(--ink-2); }
 
 .perks { list-style: none; margin: 0; padding: 0; }
@@ -431,7 +437,7 @@ h2 {
   transition: background-color .35s, border-color .35s, color .35s, transform .35s;
 }
 .steps-list li.is-done .step-n { background: var(--red-ink); border-color: var(--red-ink); color: #fff; transform: scale(1.06); }
-.steps-list h3 { font: 600 20px/1.3 var(--f-display); margin-top: 22px; }
+.steps-list h3 { font: 400 22px/1.25 var(--f-display); margin-top: 22px; }
 .steps-list p { margin-top: 8px; color: var(--ink-2); max-width: 36ch; }
 
 /* ---------- Вопросы ---------- */
@@ -501,13 +507,20 @@ h2 {
 .err { font-size: 13px; color: #FFB4A3; }
 .booking-form .btn-sun { grid-column: 1 / -1; justify-self: start; margin-top: 4px; }
 .form-done { display: grid; gap: 14px; align-content: center; justify-items: start; min-height: 100%; }
-.form-done h3 { font: 700 clamp(1.5rem, 3vw, 2.2rem)/1.15 var(--f-display); color: var(--sun); }
+.form-done h3 { font: 400 clamp(1.7rem, 3.2vw, 2.4rem)/1.15 var(--f-display); color: var(--sun); }
 .form-done p { color: color-mix(in oklab, var(--panel-ink) 80%, transparent); max-width: 44ch; }
 
 /* ---------- Подвал ---------- */
 .site-footer { border-top: 1px solid var(--line); padding-block: 28px; font-size: 14px; color: var(--ink-2); }
 .footer-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
-.footer-row strong { color: var(--ink); font-family: var(--f-display); font-weight: 600; }
+.footer-row strong { color: var(--ink); font-family: var(--f-display); font-weight: 400; font-size: 16px; }
+
+.credits { margin-top: 18px; font-size: 13px; }
+.credits summary { cursor: pointer; width: fit-content; color: var(--ink-2); }
+.credits summary:hover { color: var(--ink); }
+.credits p { margin-top: 10px; }
+.credits ul { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 4px; }
+.credits a { color: var(--ink); text-underline-offset: 2px; }
 
 /* ---------- Курсор ---------- */
 .cursor { position: fixed; inset: 0; pointer-events: none; z-index: 1000; display: none; }
@@ -529,7 +542,7 @@ h2 {
 }
 .cursor-label { font: 600 11px/1 var(--f-body); color: var(--bg); opacity: 0; transition: opacity .2s; white-space: nowrap; }
 .cursor.is-link .cursor-shape { width: 56px; height: 56px; border-color: transparent; background: color-mix(in oklab, var(--red) 16%, transparent); }
-.cursor.is-card .cursor-shape { width: 72px; height: 72px; border: 2px solid var(--ring-c, var(--red)); background: color-mix(in oklab, var(--ink) 82%, transparent); }
+.cursor.is-card .cursor-shape { width: 84px; height: 84px; border: 2px solid var(--ring-c, var(--red)); background: color-mix(in oklab, var(--ink) 82%, transparent); }
 .cursor.is-card .cursor-label { opacity: 1; }
 .cursor.is-card .cursor-dot { opacity: 0; }
 .cursor.is-field .cursor-shape, .cursor.is-field .cursor-dot,

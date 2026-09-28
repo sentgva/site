@@ -11,7 +11,7 @@
   const rub = (n) => n.toLocaleString('ru-RU') + ' ₽';
   const byId = (id) => PARROTS.find((p) => p.id === id);
   const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
-  const paletteOf = (p) => [p.c.body, p.c.wing, p.c.belly, p.c.tip, p.c.crest || p.c.head];
+  const paletteOf = (p) => p.feathers || [p.c.body, p.c.wing, p.c.belly, p.c.tip, p.c.crest || p.c.head];
 
   document.documentElement.classList.add('js');
   document.getElementById('year').textContent = new Date().getFullYear();
@@ -68,7 +68,7 @@
     <span class="badge${p.status === 'В наличии' ? ' is-in' : ''}">${p.status}</span>
     <span class="cites" title="Приложение CITES">CITES ${p.cites}</span>
     <span class="bubble" aria-hidden="true">${p.say}</span>
-    <div class="card-parrot">${parrotSVG(p)}</div>
+    <div class="card-photo"><img src="${p.photo}" alt="${p.alt}" width="800" height="1000" loading="lazy" decoding="async"></div>
   </div>
   <div class="card-body">
     <p class="latin">${p.latin}</p>
@@ -216,7 +216,12 @@
     if (input.getAttribute('aria-invalid') === 'true') setError(input, input.id + '-err', false);
   }));
 
-  // Ара, который выглядывает из-за формы
+  // Авторы фотографий (лицензии CC BY и CC BY-SA требуют указывать автора)
+  document.getElementById('credits').innerHTML = PARROTS.map((p) =>
+    `<li>${p.name}: <a href="${p.credit.source}" target="_blank" rel="noopener">${p.credit.author}</a>, ` +
+    `<a href="${p.credit.licenseUrl}" target="_blank" rel="noopener">${p.credit.license}</a></li>`).join('');
+
+  // Ара-талисман, который выглядывает из-за формы
   document.getElementById('booking-parrot').innerHTML = parrotSVG(byId('macao'));
 
   /* ---------- Полёт через вольер ---------- */
@@ -288,7 +293,7 @@
       const el = document.createElement('figure');
       el.className = 'fly-item frame';
       el.style.setProperty('--tint', p.tint);
-      el.innerHTML = `${parrotSVG(p)}<figcaption><strong>${p.name}</strong><span>${p.latin} · до ${p.life} лет</span></figcaption>`;
+      el.innerHTML = `<img src="${p.photo}" alt="" width="800" height="1000" decoding="async"><figcaption><strong>${p.name}</strong><span>${p.latin} · до ${p.life} лет</span></figcaption>`;
       items.push({
         el, kind: 'frame', idx: i, name: p.name,
         x: fx[i], y: fy[i],
